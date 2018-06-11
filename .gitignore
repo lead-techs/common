@@ -1,0 +1,23 @@
+# Package Files #
+# *.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.iml
+
+#out
+/target/
+/target/*
+/out/
+/out/*
+
+#idea
+/.idea/
+
+#other
+/img/
+/iBase4J-UI/
+/sqls/
+
