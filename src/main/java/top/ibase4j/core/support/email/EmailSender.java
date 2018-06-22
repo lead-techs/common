@@ -62,7 +62,7 @@ public final class EmailSender {
                 port = PropertiesUtil.getString("email.smtp.port");
             }
             if (port == null || port.trim().equals("")) {
-                props.put("mail.smtp.port", port);
+//                props.put("mail.smtp.port", port);
             } else {
                 props.put("mail.smtp.port", "25");
             }
@@ -110,7 +110,8 @@ public final class EmailSender {
             userkey = PropertiesUtil.getString("email.authorisation.code");
         }
         if (userkey == null || userkey.trim().equals("")) {
-            props.setProperty("mail.smtp.auth", "false");
+            //TODO:
+            props.setProperty("mail.smtp.auth", "true");
             logger.info(Resources.getMessage("EMAIL.SET_AUTH"), "false");
         } else {
             props.setProperty("mail.smtp.auth", "true");
