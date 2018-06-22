@@ -10,6 +10,9 @@ public interface EnumsKeyConstants {
 
     interface CSTMSTATE {
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*正常*/
         static final String NORMAL = "01";
 
@@ -24,6 +27,9 @@ public interface EnumsKeyConstants {
     static final String SMS_TYPE = "SMS_TYPE";
 
     interface SMSTYPE {
+
+        /*初始化状态*/
+        static final String INIT = "00";
 
         /*验证码*/
         static final String VERCODE = "01";
@@ -43,6 +49,9 @@ public interface EnumsKeyConstants {
 
     interface AUDITSTATE{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*审核中*/
         static final String ING = "01";
 
@@ -59,6 +68,9 @@ public interface EnumsKeyConstants {
 
     interface OPERATORTYPE{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*移动*/
         static final String MOBILE = "01";
 
@@ -74,6 +86,9 @@ public interface EnumsKeyConstants {
 
     interface CHANNELSTATE{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*可用*/
         static final String ENABLE = "01";
 
@@ -85,6 +100,9 @@ public interface EnumsKeyConstants {
     static final String SMSSEND_STATE = "SMSSEND_STATE";
 
     interface SMSSENDSTATE{
+
+        /*初始化状态*/
+        static final String INIT = "00";
 
         /*成功*/
         static final String SUCCESS = "01";
@@ -107,6 +125,9 @@ public interface EnumsKeyConstants {
 
     interface SMSDELIVSTATE{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*收到*/
         static final String DELIV = "01";
 
@@ -119,8 +140,11 @@ public interface EnumsKeyConstants {
 
     interface BATCHSTATE{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*等待发送*/
-        static final String INIT = "01";
+        static final String WAIT = "01";
 
         /*发送中*/
         static final String ING = "02";
@@ -139,6 +163,10 @@ public interface EnumsKeyConstants {
     static final String USEAGE_TYPE = "USEAGE_TYPE";
 
     interface USEAGETYPE{
+
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*通用*/
         static final String PUB = "01";
 
@@ -151,6 +179,9 @@ public interface EnumsKeyConstants {
 
     interface SMSSENDCODE{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*发送*/
         static final String SEND = "01";
 
@@ -162,6 +193,10 @@ public interface EnumsKeyConstants {
     static final String ACCOUNT_TYPE = "ACCOUNT_TYPE";
 
     interface ACCNTTYPE{
+
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*增加数量*/
         static final String ADDITION = "01";
 
@@ -174,6 +209,9 @@ public interface EnumsKeyConstants {
     static final String RECHARGE_STATE = "RECHARGE_STATE";
 
     interface RECHARGESTATE{
+
+        /*初始化状态*/
+        static final String INIT = "00";
 
         /*成功*/
         static final String SUCCESS = "01";
@@ -194,6 +232,9 @@ public interface EnumsKeyConstants {
 
     interface REPLYBLACK{
 
+        /*初始化状态*/
+        static final String INIT = "00";
+
         /*不在黑名单中*/
         static final String NOTINT = "01";
 
@@ -202,5 +243,35 @@ public interface EnumsKeyConstants {
 
 
     }
+    /*逻辑删除enable*/
+    static final String DELETE_ENABLE = "DELETE_ENABLE";
+
+    interface DELETEENABLE{
+
+        /*已删除*/
+        static final Integer DELETE = 0;
+
+        /*未删除*/
+        static final Integer UNDELE = 1;
+
+
+    }
+    /*适用范围 模板 通用，个人*/
+    static final String SUIT_RANGE = "SUIT_RANGE";
+
+    interface SUITRANGE{
+
+        /*初始化状态*/
+        static final String INIT = "00";
+
+        /*通用*/
+        static final String COMMON = "01";
+
+        /*个人*/
+        static final String PERSONAL = "02";
+
+
+    }
+
 
 }

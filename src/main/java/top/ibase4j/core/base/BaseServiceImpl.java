@@ -33,6 +33,7 @@ import java.util.stream.IntStream;
  * @since 2018年5月24日 下午6:18:41
  * @param <T>
  * @param <M>
+ *     *******************************************************
  */
 public class BaseServiceImpl<T extends BaseModel, M extends BaseMapper<T>> implements BaseService<T> {
     protected Logger logger = LogManager.getLogger();
@@ -430,7 +431,7 @@ public class BaseServiceImpl<T extends BaseModel, M extends BaseMapper<T>> imple
             String requestId = Sequence.next().toString();
             if (CacheUtil.getLock(lockKey, "根据ID查询数据", requestId)) {
                 try {
-                    record = mapper.selectById(id);
+                    record = (T)mapper.selectById(id);
                     saveCache(record);
                 } finally {
                     CacheUtil.unLock(lockKey, requestId);

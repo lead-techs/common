@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 
 import com.alibaba.fastjson.JSON;
 
+import top.ibase4j.core.TmspConstants;
 import top.ibase4j.core.support.HttpCode;
 import top.ibase4j.core.support.Pagination;
 import top.ibase4j.core.util.InstanceUtil;
@@ -110,21 +111,22 @@ public abstract class AbstractController {
         if (data != null) {
             if (data instanceof Pagination<?>) {
                 Pagination<?> page = (Pagination<?>)data;
-                modelMap.put("rows", page.getRecords());
-                modelMap.put("current", page.getCurrent());
-                modelMap.put("size", page.getSize());
-                modelMap.put("pages", page.getPages());
-                modelMap.put("total", page.getTotal());
+                modelMap.put(TmspConstants.PARAMS_DATA, page.getRecords());
+                modelMap.put(TmspConstants.PARAMS_CURRENT, page.getCurrent());
+                modelMap.put(TmspConstants.PARAMS_SIZE, page.getSize());
+                modelMap.put(TmspConstants.PARAMS_PAGES, page.getPages());
+                modelMap.put(TmspConstants.PARAMS_TOTAL, page.getTotal());
             } else if (data instanceof List<?>) {
-                modelMap.put("rows", data);
-                modelMap.put("total", ((List<?>)data).size());
+                modelMap.put(TmspConstants.PARAMS_DATA, data);
+                modelMap.put(TmspConstants.PARAMS_TOTAL, ((List<?>)data).size());
             } else {
-                modelMap.put("data", data);
+                modelMap.put(TmspConstants.PARAMS_DATA, data);
             }
         }
-        modelMap.put("code", code);
-        modelMap.put("msg", msg);
-        modelMap.put("timestamp", System.currentTimeMillis());
+        modelMap.put(TmspConstants.PARAMS_RESULT,true);
+        modelMap.put(TmspConstants.PARAMS_CODE, code);
+        modelMap.put(TmspConstants.PARAMS_MSG, msg);
+        modelMap.put(TmspConstants.PARAMS_TIMESTAMP, System.currentTimeMillis());
         logger.info("response===>{}", JSON.toJSONString(modelMap));
         return ResponseEntity.ok(modelMap);
     }
