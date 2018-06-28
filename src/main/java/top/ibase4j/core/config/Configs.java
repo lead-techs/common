@@ -102,7 +102,7 @@ public class Configs implements EnvironmentPostProcessor, Ordered {
     }
 
     public static void main(String[] args) {
-        String encrypt = SecurityUtil.encryptDes("tmspTest@123456", Constants.DB_KEY.getBytes());
+        String encrypt = SecurityUtil.encryptDes("root", Constants.DB_KEY.getBytes());
         System.out.println(encrypt);
         System.out.println(SecurityUtil.decryptDes(encrypt, Constants.DB_KEY.getBytes()));
     }

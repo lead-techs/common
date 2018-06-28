@@ -116,14 +116,17 @@ public abstract class AbstractController {
                 modelMap.put(TmspConstants.PARAMS_SIZE, page.getSize());
                 modelMap.put(TmspConstants.PARAMS_PAGES, page.getPages());
                 modelMap.put(TmspConstants.PARAMS_TOTAL, page.getTotal());
+                modelMap.put(TmspConstants.PARAMS_RESULT,true);
             } else if (data instanceof List<?>) {
                 modelMap.put(TmspConstants.PARAMS_DATA, data);
                 modelMap.put(TmspConstants.PARAMS_TOTAL, ((List<?>)data).size());
+                modelMap.put(TmspConstants.PARAMS_RESULT,true);
             } else {
                 modelMap.put(TmspConstants.PARAMS_DATA, data);
+                modelMap.put(TmspConstants.PARAMS_RESULT,false);
             }
+
         }
-        modelMap.put(TmspConstants.PARAMS_RESULT,true);
         modelMap.put(TmspConstants.PARAMS_CODE, code);
         modelMap.put(TmspConstants.PARAMS_MSG, msg);
         modelMap.put(TmspConstants.PARAMS_TIMESTAMP, System.currentTimeMillis());
