@@ -14,10 +14,10 @@ public class HttpProcessException extends BaseException{
     }
 
     /**
-     * @param msg	消息
+     * @param message	消息
      */
-    public HttpProcessException(String msg) {
-        super(msg);
+    public HttpProcessException(String message) {
+        super(message);
     }
 
     @Override

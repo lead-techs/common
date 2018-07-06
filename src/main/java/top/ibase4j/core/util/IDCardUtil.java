@@ -31,7 +31,7 @@ public final class IDCardUtil {
     public static final int MACAO_AREACODE = 820000;
 
     /** 数字正则 **/
-    public static final String regexNum = "^[0-9]*$";
+    public static final String regexNum = "^[1][3,4,5,7,8][0-9]{9}$";
     /** 闰年生日正则 **/
     public static final String regexBirthdayInLeapYear = "^((19[0-9]{2})|(200[0-9])|(201[0-5]))((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))$";
     /** 平年生日正则 **/

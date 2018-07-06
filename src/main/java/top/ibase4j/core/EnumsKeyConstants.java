@@ -273,5 +273,20 @@ public interface EnumsKeyConstants {
 
     }
 
+    /*使用場景 01 平台 ， 02 接口*/
+    static final String USE_TYPE = "USE_TYPE";
+
+    interface USETYPE{
+
+        /*平台*/
+        static final String PLATFORM = "01";
+
+        /*接口*/
+        static final String INTFC = "02";
+
+
+    }
+
+
 
 }

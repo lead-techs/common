@@ -99,7 +99,7 @@ public final class AlipayUtil {
                     result.put("trade_no", resultMap.get("trade_no"));
                     result.put("trade_state", "1");
                 } else {
-                    result.put("trade_state_desc", resultMap.get("msg"));
+                    result.put("trade_state_desc", resultMap.get("message"));
                     result.put("trade_state", "2");
                 }
             }
