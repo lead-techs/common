@@ -241,22 +241,23 @@ public final class SecurityUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(encryptDes("SHJR"));
-		System.out.println(decryptDes("INzvw/3Qc4q="));
-		System.out.println(encryptMd5("SHJR"));
-		System.out.println(encryptSHA("1"));
-		Map<String, Object> key = RSACoder.initKey();
-		String privateKey = encryptBASE64(RSACoder.getPrivateKey(key));
-		String publicKey = encryptBASE64(RSACoder.getPublicKey(key));
-		System.out.println(privateKey);
-		System.out.println(publicKey);
-		String sign = signRSA("132", privateKey);
-		System.out.println(sign);
-		String encrypt = encryptRSAPrivate("132", privateKey);
-		System.out.println(encrypt);
-		String org = decryptRSAPublic(encrypt, publicKey);
-		System.out.println(org);
-		System.out.println(verifyRSA(org, publicKey, sign));
+//		System.out.println(encryptDes("SHJR"));
+//		System.out.println(decryptDes("INzvw/3Qc4q="));
+		System.out.println(encryptHMAC("123456"));
+
+//		System.out.println(encryptSHA("1"));
+//		Map<String, Object> key = RSACoder.initKey();
+//		String privateKey = encryptBASE64(RSACoder.getPrivateKey(key));
+//		String publicKey = encryptBASE64(RSACoder.getPublicKey(key));
+//		System.out.println(privateKey);
+//		System.out.println(publicKey);
+//		String sign = signRSA("132", privateKey);
+//		System.out.println(sign);
+//		String encrypt = encryptRSAPrivate("132", privateKey);
+//		System.out.println(encrypt);
+//		String org = decryptRSAPublic(encrypt, publicKey);
+//		System.out.println(org);
+//		System.out.println(verifyRSA(org, publicKey, sign));
 
 		// System.out.println("-------列出加密服务提供者-----");
 		// Provider[] pro = Security.getProviders();

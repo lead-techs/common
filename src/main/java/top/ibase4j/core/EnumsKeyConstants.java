@@ -283,10 +283,32 @@ public interface EnumsKeyConstants {
 
         /*接口*/
         static final String INTFC = "02";
-
-
     }
 
+    /* 提醒类型 */
+    static final String REMIND_TYPE = "REMIND_TYPE";
 
+    interface REMINDTYPE{
+        /* 未知 */
+        static final String UNKNOWN = "00";
+        /* 短信数量 */
+        static final String SMS_NUM = "01";
+        /* 发送频率*/
+        static final String SEND_RATE = "02";
+    }
+
+    /* 阈值类型 */
+    static final String THRESHOLD_TYPE = "THRESHOLD_TYPE";
+
+    interface THRESHOLDTYPE {
+        /* 未知 */
+        static final String UNKNOWN = "00";
+        /* 小于 */
+        static final String  LESS_THAN = "01";
+        /* 等于*/
+        static final String EQUAL = "02";
+        /* 大于*/
+        static final String GREATER_THAN = "03";
+    }
 
 }
