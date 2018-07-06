@@ -83,7 +83,7 @@ public interface Constants {
     }
 
     /** 短信验证码类型 */
-    public interface MSGCHKTYPE {
+    interface MSGCHKTYPE {
         /** 注册 */
         public static final String REGISTER = CACHE_NAMESPACE + "REGISTER:";
         /** 登录 */

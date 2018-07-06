@@ -6,6 +6,7 @@ package top.ibase4j.core.exception;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.ModelMap;
 
+import top.ibase4j.core.TmspConstants;
 import top.ibase4j.core.support.HttpCode;
 
 /**
@@ -31,11 +32,11 @@ public abstract class BaseException extends RuntimeException {
 	}
 
 	public void handler(ModelMap modelMap) {
-		modelMap.put("code", getCode().value());
+		modelMap.put(TmspConstants.PARAMS_CODE, getCode().value());
 		if (StringUtils.isNotBlank(getMessage())) {
-			modelMap.put("msg", getMessage());
+			modelMap.put(TmspConstants.PARAMS_MSG, getMessage());
 		} else {
-			modelMap.put("msg", getCode().msg());
+			modelMap.put(TmspConstants.PARAMS_MSG, getCode().msg());
 		}
 		modelMap.put("timestamp", System.currentTimeMillis());
 	}

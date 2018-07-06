@@ -2,10 +2,9 @@ package top.ibase4j.core.util;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.Assert.*;
+import java.text.ParseException;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by HH on 2018-06-11.
@@ -25,6 +24,31 @@ public class HttpUtilTest {
 
     @Test
     public void httpClientPost1() throws Exception {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//            System.out.println("请输入日期。如2017-11-01");
+//            Scanner scan = new Scanner(System.in);
+//            String read = scan.nextLine();
+            Date date = formatter.parse("2017-11-30");
+            System.out.println("退后一天日期为：" + formatter.format(addDateOneDay(date)));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+            System.out.println("录入错误，程序结束！");
+        }
+
+
+    }
+
+    public static Date addDateOneDay(Date date) {
+        if (null == date) {
+            return date;
+        }
+        Calendar c = Calendar.getInstance();
+        c.setTime(date); // 设置当前日期
+        c.add(Calendar.DATE, 1); // 日期加1天
+        date = c.getTime();
+        return date;
     }
 
     @Test

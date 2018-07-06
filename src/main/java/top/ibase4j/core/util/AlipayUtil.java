@@ -23,6 +23,7 @@ import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 
+import top.ibase4j.core.TmspConstants;
 import top.ibase4j.core.support.pay.AliPayConfig;
 import top.ibase4j.core.support.pay.vo.RefundResult;
 
@@ -99,7 +100,7 @@ public final class AlipayUtil {
                     result.put("trade_no", resultMap.get("trade_no"));
                     result.put("trade_state", "1");
                 } else {
-                    result.put("trade_state_desc", resultMap.get("message"));
+                    result.put("trade_state_desc", resultMap.get(TmspConstants.PARAMS_MSG));
                     result.put("trade_state", "2");
                 }
             }
