@@ -279,7 +279,7 @@ public interface EnumsKeyConstants {
     interface USETYPE{
 
         /*平台*/
-        static final String PLATFORM = "01";
+        static final String PLATFO = "01";
 
         /*接口*/
         static final String INTFC = "02";
