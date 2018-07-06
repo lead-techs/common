@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import top.ibase4j.core.Constants;
+import top.ibase4j.core.TmspConstants;
 
 /**
  * Web层辅助类
@@ -290,8 +291,8 @@ public final class WebUtil {
     public static boolean write(HttpServletResponse response, Integer code, String msg) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         Map<String, Object> modelMap = InstanceUtil.newLinkedHashMap();
-        modelMap.put("code", code.toString());
-        modelMap.put("msg", msg);
+        modelMap.put(TmspConstants.PARAMS_CODE, code.toString());
+        modelMap.put(TmspConstants.PARAMS_MSG, msg);
         modelMap.put("timestamp", System.currentTimeMillis());
         logger.info("response===>" + JSON.toJSON(modelMap));
         response.getOutputStream().write(JSON.toJSONBytes(modelMap, SerializerFeature.DisableCircularReferenceDetect));

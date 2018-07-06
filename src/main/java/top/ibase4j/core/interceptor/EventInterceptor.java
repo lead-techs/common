@@ -14,6 +14,7 @@ import org.springframework.web.method.HandlerMethod;
 import com.alibaba.fastjson.JSON;
 
 import io.swagger.annotations.ApiOperation;
+import top.ibase4j.core.TmspConstants;
 import top.ibase4j.core.base.BaseService;
 import top.ibase4j.core.support.context.ApplicationContextHolder;
 import top.ibase4j.core.util.DateUtil;
@@ -85,7 +86,7 @@ public class EventInterceptor extends BaseInterceptor {
                         record.setCreateBy(Long.parseLong(uid.toString()));
                         record.setUpdateBy(Long.parseLong(uid.toString()));
                     }
-                    final String msg = (String)request.getAttribute("msg");
+                    final String msg = (String)request.getAttribute(TmspConstants.PARAMS_MSG);
                     try {
                         HandlerMethod handlerMethod = (HandlerMethod)handler;
                         ApiOperation apiOperation = handlerMethod.getMethod().getAnnotation(ApiOperation.class);

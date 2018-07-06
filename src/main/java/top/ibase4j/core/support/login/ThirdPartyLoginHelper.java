@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.alibaba.fastjson.JSONObject;
 
+import top.ibase4j.core.TmspConstants;
 import top.ibase4j.core.support.context.Resources;
 import top.ibase4j.core.util.HttpUtil;
 
@@ -50,7 +51,7 @@ public final class ThirdPartyLoginHelper {
 				user.setGender("1");
 			}
 		} else {
-			throw new IllegalArgumentException(json.getString("msg"));
+			throw new IllegalArgumentException(json.getString(TmspConstants.PARAMS_MSG));
 		}
 		return user;
 	}
@@ -196,7 +197,7 @@ public final class ThirdPartyLoginHelper {
 			params4.setValue("http://" + host + Resources.THIRDPARTY.getString("redirect_url_sina"));
 			list.add(params4);
 			NameValuePair params5 = new NameValuePair();
-			params5.setName("code");
+			params5.setName(TmspConstants.PARAMS_CODE);
 			params5.setValue(code);
 			list.add(params5);
 			String tokenRes = HttpUtil.httpClientPost(tokenUrl, list);

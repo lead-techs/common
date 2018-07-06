@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import com.alibaba.fastjson.JSON;
 
 import top.ibase4j.core.Constants;
+import top.ibase4j.core.TmspConstants;
 import top.ibase4j.core.exception.BaseException;
 import top.ibase4j.core.exception.IllegalParameterException;
 import top.ibase4j.core.support.DateFormat;
@@ -58,13 +59,13 @@ public class AdviceController {
         } else if (ex instanceof IllegalArgumentException) {
             new IllegalParameterException(ex.getMessage()).handler(modelMap);
         } else if ("org.apache.shiro.authz.UnauthorizedException".equals(ex.getClass().getName())) {
-            modelMap.put("code", HttpCode.FORBIDDEN.value().toString());
-            modelMap.put("msg", HttpCode.FORBIDDEN.msg());
+            modelMap.put(TmspConstants.PARAMS_CODE, HttpCode.FORBIDDEN.value().toString());
+            modelMap.put(TmspConstants.PARAMS_MSG, HttpCode.FORBIDDEN.msg());
         } else {
-            modelMap.put("code", HttpCode.INTERNAL_SERVER_ERROR.value().toString());
+            modelMap.put(TmspConstants.PARAMS_CODE, HttpCode.INTERNAL_SERVER_ERROR.value().toString());
             String msg = StringUtils.defaultIfBlank(ex.getMessage(), HttpCode.INTERNAL_SERVER_ERROR.msg());
             logger.debug(msg);
-            modelMap.put("msg", msg.length() > 100 ? "系统走神了,请稍候再试." : msg);
+            modelMap.put(TmspConstants.PARAMS_MSG, msg.length() > 100 ? "系统走神了,请稍候再试." : msg);
         }
         modelMap.put("timestamp", System.currentTimeMillis());
         logger.info("response===>" + JSON.toJSON(modelMap));
