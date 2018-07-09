@@ -197,10 +197,10 @@ public interface EnumsKeyConstants {
         /*初始化状态*/
         static final String INIT = "00";
 
-        /*增加数量*/
+        /*充值*/
         static final String ADDITION = "01";
 
-        /*减少数量*/
+        /*消费*/
         static final String SUBTRACTION = "02";
 
     }
@@ -309,6 +309,46 @@ public interface EnumsKeyConstants {
         static final String EQUAL = "02";
         /* 大于*/
         static final String GREATER_THAN = "03";
+    }
+
+    /* 客户类型 */
+    static final String CSTM_TYPE = "CSTM_TYPE";
+
+    interface CSTMTYPE{
+        /* 未知 */
+        static final String UNKNOWN = "00";
+        /* 个人 */
+        static final String PERSON = "01";
+        /* 企业*/
+        static final String COMPANY = "02";
+    }
+
+    /* 支付状态 */
+    static final String PAY_TYPE = "PAY_TYPE";
+
+    interface PAYTYPE{
+        /* 审核中 */
+        static final String UNPAY = "01";
+        /* 通过 */
+        static final String PAY = "02";
+        /* 驳回 */
+        static final String REJECT = "03";
+        /* 已取消 */
+        static final String CANCEL = "04";
+    }
+
+    /* 任务状态 */
+    static final String TASK_STATE = "TASK_STATE";
+
+    interface TASKSTATE{
+        /* 待发送 */
+        static final String WAIT_SEND = "01";
+        /* 已发送 */
+        static final String SEND = "02";
+        /* 成功 */
+        static final String SUCCESS = "03";
+        /* 失败 */
+        static final String FAIL = "04";
     }
 
 }

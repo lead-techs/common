@@ -1,19 +1,42 @@
 package top.ibase4j.core.util;
 
+import com.alibaba.dubbo.common.utils.LogUtil;
 import com.google.common.base.Joiner;
 import jodd.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import top.ibase4j.core.exception.IllegalParameterException;
 
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 处理电话号码
+ */
 public class MobilesDisposeUtil {
 
     private static final Pattern PATTERN_MOBILE = Pattern.compile("\\d{11}");
     private static final Pattern PATTERN_MOBILESTRING = Pattern.compile("^[0-9,]*$");
+    private static final String MOBILE_REGEX = "^((13[0-9])|(14[5,7,9])|(15([0-3]|[5-9]))|(17[0,1,3,5,6,7,8])|(18[0-9])|(19[8|9]))\\d{8}$";
+    private static final Pattern PAT_MOBILE = Pattern.compile(MOBILE_REGEX);
 
-
+    /**
+     * 检查电话号码是否合法
+     * @param phone
+     * @return
+     */
+    public static boolean isPhone(String phone) {
+        if (phone.trim().length() != 11) {
+            throw new IllegalParameterException("手机号应为11位数");
+        } else {
+            Matcher m = PAT_MOBILE.matcher(phone);
+            boolean isMatch = m.matches();
+            if (!isMatch) {
+                throw new IllegalParameterException("请填入正确的手机号");
+            }
+            return isMatch;
+        }
+    }
     /**
      * 有效号码
      *
