@@ -351,4 +351,14 @@ public interface EnumsKeyConstants {
         static final String FAIL = "04";
     }
 
+    /* 收款账户 */
+    static final String PAY_ACCOUNT = "PAY_ACCOUNT";
+
+    interface PAYACCOUNT{
+        /* 个人账户 */
+        static final String PRIVATE = "01";
+        /* 对公账户 */
+        static final String PUBLIC = "02";
+    }
+
 }

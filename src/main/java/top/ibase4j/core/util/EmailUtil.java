@@ -1,5 +1,6 @@
 package top.ibase4j.core.util;
 
+import top.ibase4j.core.exception.IllegalParameterException;
 import top.ibase4j.core.support.email.Email;
 import top.ibase4j.core.support.email.EmailSender;
 
@@ -13,6 +14,18 @@ public final class EmailUtil {
     private EmailUtil() {
     }
 
+    /**
+     * 检查邮箱格式
+     * @param email
+     * @return
+     */
+    public static boolean isEmailFormat(String email) {
+        boolean tag = true;
+        if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
+            throw new IllegalParameterException("邮箱格式不正确！");
+        }
+        return tag;
+    }
     /**
      * 发送邮件
      */

@@ -20,7 +20,7 @@ public class HttpClientUtilTest {
     @Test
     public void get1() throws Exception {
 //        MobilesDisposeUtil.isPhone("15965471234");
-//        System.out.println(MobilesDisposeUtil.isPhone("12965471342"));
+        System.out.println(EmailUtil.isEmailFormat("12965471342@qq.com"));
     }
 
     @Test

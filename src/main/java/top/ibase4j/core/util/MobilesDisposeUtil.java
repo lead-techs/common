@@ -1,6 +1,5 @@
 package top.ibase4j.core.util;
 
-import com.alibaba.dubbo.common.utils.LogUtil;
 import com.google.common.base.Joiner;
 import jodd.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
