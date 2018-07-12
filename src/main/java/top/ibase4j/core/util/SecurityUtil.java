@@ -2,6 +2,7 @@ package top.ibase4j.core.util;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.RandomUtils;
 import top.ibase4j.core.support.security.BASE64Encoder;
 import top.ibase4j.core.support.security.coder.DESCoder;
 import top.ibase4j.core.support.security.coder.HmacCoder;
@@ -240,10 +241,19 @@ public final class SecurityUtil {
 		return encryptMd5(SecurityUtil.encryptSHA(password));
 	}
 
+	/**
+	 * 随机生成AccessSecret
+	 * @return
+	 */
+	public static String generateAccessSecret(){
+		Integer random = RandomUtils.nextInt(123456, 999999);
+		return encryptMd5(String.valueOf(random));
+	}
+
 	public static void main(String[] args) throws Exception {
 //		System.out.println(encryptDes("SHJR"));
 //		System.out.println(decryptDes("INzvw/3Qc4q="));
-		System.out.println(encryptMd5("123456"));
+		System.out.println(generateAccessSecret());
 
 //		System.out.println(encryptSHA("1"));
 //		Map<String, Object> key = RSACoder.initKey();
