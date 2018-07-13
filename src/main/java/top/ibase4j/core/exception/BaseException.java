@@ -32,6 +32,7 @@ public abstract class BaseException extends RuntimeException {
 	}
 
 	public void handler(ModelMap modelMap) {
+		modelMap.put(TmspConstants.PARAMS_RESULT,false);
 		modelMap.put(TmspConstants.PARAMS_CODE, getCode().value());
 		if (StringUtils.isNotBlank(getMessage())) {
 			modelMap.put(TmspConstants.PARAMS_MSG, getMessage());

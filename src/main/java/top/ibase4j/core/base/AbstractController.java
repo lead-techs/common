@@ -108,6 +108,13 @@ public abstract class AbstractController {
                 }
             }
         }
+
+        if(code.equals("200")){
+            modelMap.put(TmspConstants.PARAMS_RESULT,true);
+        }else{
+            modelMap.put(TmspConstants.PARAMS_RESULT,false);
+        }
+
         if (data != null) {
             if (data instanceof Pagination<?>) {
                 Pagination<?> page = (Pagination<?>)data;

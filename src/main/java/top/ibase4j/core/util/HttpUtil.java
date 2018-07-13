@@ -1,12 +1,9 @@
 package top.ibase4j.core.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.KeyStore;
-import java.util.ArrayList;
-
-import javax.net.ssl.SSLContext;
-
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -20,22 +17,80 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
+import javax.net.ssl.SSLContext;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.KeyStore;
+import java.util.ArrayList;
 
 public final class HttpUtil {
-    private static final Logger logger = LogManager.getLogger();
+//    private static final Logger logger = LogManager.getLogger();
 
     private static final MediaType CONTENT_TYPE_FORM = MediaType
         .parse("application/x-www-form-urlencoded;charset=UTF-8");
     private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";
 
     private HttpUtil() {
+    }
+
+    /**
+     * 纯Java实现GET请求
+     *
+     * @param url
+     * @param param
+     * @return
+     */
+    public static String httpClientGet(String url, String param) {
+
+        PrintWriter out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            // 打开和URL之间的连接
+            URLConnection conn = realUrl.openConnection();
+            // 设置通用的请求属性
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+            conn.setRequestProperty("user-agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // 发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(conn.getOutputStream());
+            // 发送请求参数
+            out.print(param);
+            // flush输出流的缓冲
+            out.flush();
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            System.out.println("发送 POST 请求出现异常！"+e);
+            e.printStackTrace();
+        }
+        //使用finally块来关闭输出流、输入流
+        finally{
+            try{
+                if(out!=null){
+                    out.close();
+                }
+                if(in!=null){
+                    in.close();
+                }
+            }
+            catch(IOException ex){
+                ex.printStackTrace();
+            }
+        }
+        return result;
     }
 
     public static final String httpClientPost(String url) {
@@ -46,7 +101,7 @@ public final class HttpUtil {
             client.executeMethod(getMethod);
             result = getMethod.getResponseBodyAsString();
         } catch (Exception e) {
-            logger.error("", e);
+//            logger.error("", e);
         } finally {
             getMethod.releaseConnection();
         }
@@ -66,7 +121,7 @@ public final class HttpUtil {
             client.executeMethod(postMethod);
             result = postMethod.getResponseBodyAsString();
         } catch (Exception e) {
-            logger.error("", e);
+//            logger.error("", e);
         } finally {
             postMethod.releaseConnection();
         }
@@ -128,7 +183,7 @@ public final class HttpUtil {
                 httpclient.close();
             }
         } catch (Exception e) {
-            logger.error("", e);
+//            logger.error("", e);
             throw new RuntimeException(e);
         }
     }
