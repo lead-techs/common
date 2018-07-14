@@ -73,7 +73,7 @@ public enum HttpCode {
 		return Resources.getMessage("HTTPCODE_" + this.value);
 	}
 
-	public String toString() {
-		return this.value.toString();
-	}
+//	public String toString() {
+//		return this.value.toString();
+//	}
 }

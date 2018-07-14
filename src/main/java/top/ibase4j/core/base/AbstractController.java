@@ -72,7 +72,7 @@ public abstract class AbstractController {
     }
 
     /** 设置响应代码 */
-    protected ResponseEntity<ModelMap> setModelMap(String code, String msg) {
+    protected ResponseEntity<ModelMap> setModelMap(Integer code, String msg) {
         return setModelMap(new ModelMap(), code, msg, null);
     }
 
@@ -87,17 +87,17 @@ public abstract class AbstractController {
     }
 
     /** 设置响应代码 */
-    protected ResponseEntity<ModelMap> setModelMap(String code, String msg, Object data) {
+    protected ResponseEntity<ModelMap> setModelMap(Integer code, String msg, Object data) {
         return setModelMap(new ModelMap(), code, msg, data);
     }
 
     /** 设置响应代码 */
     protected ResponseEntity<ModelMap> setModelMap(ModelMap modelMap, HttpCode code, Object data) {
-        return setModelMap(modelMap, code.value().toString(), code.msg(), data);
+        return setModelMap(modelMap, code.value(), code.msg(), data);
     }
 
     /** 设置响应代码 */
-    protected ResponseEntity<ModelMap> setModelMap(ModelMap modelMap, String code, String msg, Object data) {
+    protected ResponseEntity<ModelMap> setModelMap(ModelMap modelMap, Integer code, String msg, Object data) {
         if (!modelMap.isEmpty()) {
             Map<String, Object> map = InstanceUtil.newLinkedHashMap();
             map.putAll(modelMap);
@@ -109,7 +109,7 @@ public abstract class AbstractController {
             }
         }
 
-        if(code.equals("200")){
+        if(code.equals(200)){
             modelMap.put(TmspConstants.PARAMS_RESULT,true);
         }else{
             modelMap.put(TmspConstants.PARAMS_RESULT,false);
