@@ -46,54 +46,28 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 
-        System.out.println(".............");
-
-        if (isLoginRequest(request, response)) {
-            if (isLoginSubmission(request, response)) {
-                if (log.isTraceEnabled()) {
-                    log.trace("Login submission detected.  Attempting to execute login.");
-                }
-                return executeLogin(request, response);
+        if(this.isLoginRequest(request, response)) {
+            if(this.isLoginSubmission(request, response)) {
+                return this.executeLogin(request, response);
             } else {
-                if (log.isTraceEnabled()) {
-                    log.trace("Login page view.");
-                }
-                //allow them to see the login page ;)
                 return true;
             }
         } else {
-            HttpServletRequest req = (HttpServletRequest) request;
+            this.saveRequest(request);
+            HttpServletRequest req = (HttpServletRequest)request;
             HttpServletResponse resp = (HttpServletResponse) response;
-            if (req.getMethod().equals(RequestMethod.OPTIONS.name())) {
-                resp.setStatus(HttpStatus.OK.value());
-                return true;
-            }
-
-            if (log.isTraceEnabled()) {
-                log.trace("Attempting to access a path which requires authentication.  Forwarding to the " +
-                        "Authentication url [" + getLoginUrl() + "]");
-            }
-
-//            //前端Ajax请求时requestHeader里面带一些参数，用于判断是否是前端的请求
-//            String ajaxHeader = req.getHeader("Authorization");
-//            if (ajaxHeader != null || req.getHeader("Authorization") != null) {
-//                //前端Ajax请求，则不会重定向
-//                resp.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
-//                resp.setHeader("Access-Control-Allow-Credentials", "true");
-//                resp.setContentType("application/json; charset=utf-8");
-//                resp.setCharacterEncoding("UTF-8");
-//                PrintWriter out = resp.getWriter();
-//                JSONObject result = new JSONObject();
-//                result.put("message", "请重新登录！");
-//                result.put("statusCode", 401);
-//                out.println(result);
-//                out.flush();
-//                out.close();
-//            } else {
-//                saveRequestAndRedirectToLogin(request, response);
-//            }
-
-
+            resp.setHeader("Access-Control-Allow-Origin",  req.getHeader("Origin"));
+            resp.setHeader("Access-Control-Allow-Credentials", "true");
+            resp.setContentType("application/json; charset=utf-8");
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter out = resp.getWriter();
+            JSONObject result = new JSONObject();
+            result.put("message", "还没有登录！");
+            result.put("code", 401);
+            result.put("result", false);
+            out.println(result);
+            out.flush();
+            out.close();
             return false;
         }
     }
