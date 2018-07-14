@@ -1,8 +1,10 @@
 package top.ibase4j.core.config;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Maps;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.mgt.RememberMeManager;
@@ -27,6 +29,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import top.ibase4j.core.filter.ShiroFormAuthenticationFilter;
 import top.ibase4j.core.listener.SessionListener;
 import top.ibase4j.core.support.cache.shiro.RedisCacheManager;
 import top.ibase4j.core.support.shiro.Realm;
@@ -34,6 +37,8 @@ import top.ibase4j.core.support.shiro.RedisSessionDAO;
 import top.ibase4j.core.util.FileUtil;
 import top.ibase4j.core.util.InstanceUtil;
 import top.ibase4j.core.util.PropertiesUtil;
+
+import javax.servlet.Filter;
 
 /**
  * 权限拦截配置
@@ -50,6 +55,7 @@ public class ShiroConfig {
     static String filters = "/=anon;/app/**=anon;/index.jsp=anon;/cstm/regin=anon;/cstm/login=anon;/*.ico=anon;/upload/*=anon;"
             + "/unauthorized=anon;/forbidden=anon;/sns*=anon;/*/api-docs=anon;/callback*=anon;/swagger*=anon;"
             + "/configuration/*=anon;/*/configuration/*=anon;/webjars/**=anon;" + "/**=authc,user";
+
     static {
         String path = ShiroConfig.class.getResource("/").getFile();
         try {
@@ -83,7 +89,7 @@ public class ShiroConfig {
 
     @Bean
     public DefaultWebSecurityManager securityManager(AuthorizingRealm realm, SessionManager sessionManager,
-        RememberMeManager rememberMeManager) {
+                                                     RememberMeManager rememberMeManager) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(realm);
         manager.setCacheManager(new RedisCacheManager());
@@ -130,6 +136,12 @@ public class ShiroConfig {
             filterMap.put(keyValue[0], keyValue[1]);
         }
         factory.setFilterChainDefinitionMap(filterMap);
+
+
+        HashMap<String, Filter> filters = Maps.newHashMap();
+        filters.put("authc", new ShiroFormAuthenticationFilter());
+        factory.setFilters(filters);
+
         return factory;
     }
 
@@ -148,7 +160,7 @@ public class ShiroConfig {
 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAdvisor(
-        org.apache.shiro.mgt.SecurityManager securityManager) {
+            org.apache.shiro.mgt.SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
