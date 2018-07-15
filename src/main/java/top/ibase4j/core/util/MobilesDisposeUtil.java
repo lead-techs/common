@@ -74,7 +74,7 @@ public class MobilesDisposeUtil {
      * @return
      */
     public static Map<String, Object> statisticMobile(String mobiles) {
-        if (StringUtil.isEmpty(mobiles)) {
+        if (StringUtils.isEmpty(mobiles)) {
             Map map = new HashMap();
             map.put("totcalCount", 0);
             map.put("duplicateCount", 0);
