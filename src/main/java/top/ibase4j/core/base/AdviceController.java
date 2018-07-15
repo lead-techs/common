@@ -59,10 +59,12 @@ public class AdviceController {
         } else if (ex instanceof IllegalArgumentException) {
             new IllegalParameterException(ex.getMessage()).handler(modelMap);
         } else if ("org.apache.shiro.authz.UnauthorizedException".equals(ex.getClass().getName())) {
-            modelMap.put(TmspConstants.PARAMS_CODE, HttpCode.FORBIDDEN.value().toString());
+            modelMap.put(TmspConstants.PARAMS_RESULT,false);
+            modelMap.put(TmspConstants.PARAMS_CODE, HttpCode.FORBIDDEN.value());
             modelMap.put(TmspConstants.PARAMS_MSG, HttpCode.FORBIDDEN.msg());
         } else {
-            modelMap.put(TmspConstants.PARAMS_CODE, HttpCode.INTERNAL_SERVER_ERROR.value().toString());
+            modelMap.put(TmspConstants.PARAMS_RESULT,false);
+            modelMap.put(TmspConstants.PARAMS_CODE, HttpCode.INTERNAL_SERVER_ERROR.value());
             String msg = StringUtils.defaultIfBlank(ex.getMessage(), HttpCode.INTERNAL_SERVER_ERROR.msg());
             logger.debug(msg);
             modelMap.put(TmspConstants.PARAMS_MSG, msg.length() > 100 ? "系统走神了,请稍候再试." : msg);
