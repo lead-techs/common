@@ -34,9 +34,11 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization, X-Requested-With, requestId, Correlation-Id");
 
         if (httpRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
-//            httpResponse.setHeader("Access-Control-Allow-Origin", "*");
-//            httpResponse.setHeader("Access-Control-Allow-Methods", httpRequest.getMethod());
+            httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+            httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization, X-Requested-With, requestId, Correlation-Id");
+
             httpResponse.setStatus(HttpStatus.OK.value());
+
             return false;
         }
 
@@ -45,18 +47,25 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        setLoginUrl("/cstm/login");
 
-        if(this.isLoginRequest(request, response)) {
-            if(this.isLoginSubmission(request, response)) {
+        if (this.isLoginRequest(request, response)) {
+            System.out.println("enter login");
+
+            if (this.isLoginSubmission(request, response)) {
                 return this.executeLogin(request, response);
             } else {
                 return true;
             }
+        } else if (pathsMatch("/cstm/login", request) || pathsMatch("/cstm/logout", request) || pathsMatch("/cstm/regin", request)) {
+            System.out.println("enter pathsMatch");
+
+            return true;
         } else {
             this.saveRequest(request);
-            HttpServletRequest req = (HttpServletRequest)request;
+            HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse resp = (HttpServletResponse) response;
-            resp.setHeader("Access-Control-Allow-Origin",  req.getHeader("Origin"));
+            resp.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
             resp.setHeader("Access-Control-Allow-Credentials", "true");
             resp.setContentType("application/json; charset=utf-8");
             resp.setCharacterEncoding("UTF-8");
@@ -80,6 +89,8 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         HttpServletRequest request = (HttpServletRequest) req;
         //获取请求路径
         if (((HttpServletRequest) req).getMethod().equals("OPTIONS")) {
+            ((HttpServletResponse) resp).setHeader("Access-Control-Allow-Origin", "*");
+            ((HttpServletResponse) resp).setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization, X-Requested-With, requestId, Correlation-Id");
             ((HttpServletResponse) resp).setStatus(200);
             return true;
         }
@@ -88,6 +99,8 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         // 模板 导出 导入
         if (path.contains("template") || path.contains("print") || path.contains("download")) {
             ((HttpServletResponse) resp).setStatus(200);
+
+
             return true;
         }
 
