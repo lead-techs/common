@@ -57,7 +57,7 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
             } else {
                 return true;
             }
-        } else if (pathsMatch("/cstm/login", request) || pathsMatch("/cstm/logout", request) || pathsMatch("/cstm/regin", request)) {
+        } else if (pathsMatch("/cstm/login", request) || pathsMatch("/cstm/logout", request) || pathsMatch("/cstm/regin", request)|| pathsMatch("/cstm/sendSMS", request)) {
             System.out.println("enter pathsMatch");
 
             return true;
