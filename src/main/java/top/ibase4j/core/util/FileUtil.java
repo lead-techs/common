@@ -3,16 +3,16 @@
  */
 package top.ibase4j.core.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import jodd.util.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import top.ibase4j.core.exception.IllegalParameterException;
 
 /**
  * 
@@ -57,5 +57,62 @@ public class FileUtil {
             }
         }
         return list;
+    }
+
+    /**
+     * 读取文件中的电话号码
+     * Excel2007以下版本和文本格式
+     * @param fileName
+     * @return
+     * @throws Exception
+     */
+    public static String readFileToMobiles(String fileName) throws Exception {
+
+        if(StringUtil.isEmpty(fileName)){
+            throw new IllegalParameterException("文件不能为空");
+        }
+        String postFix = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+
+        String mobiles = "";
+        //是否excel文件
+        if(postFix.equals(".xlsx")||postFix.equals(".xls")){
+            StringBuffer strBuffer = new StringBuffer();
+            List<String[]> strs = ExcelReaderUtil.excelToArrayList(fileName, 0);
+            for(String[] str:strs){
+                String row = "";
+                strBuffer = strBuffer.append(str[0]).append(",");
+            }
+            mobiles = strBuffer.toString();
+        }else{
+            mobiles = readToString(fileName);
+        }
+        return mobiles;
+    }
+
+
+    /**
+     * 读取一般的文本文件
+     * 将文件内容转成String
+     * @param filename
+     * @return
+     * @throws IOException
+     */
+    public static String readToString(String filename) throws IOException {
+        BufferedReader in = new BufferedReader(new FileReader(filename));
+        String s;
+        StringBuilder sb = new StringBuilder();
+        while((s = in.readLine())!= null)
+            sb.append(s + ",");
+        in.close();
+
+        Pattern pattern = Pattern.compile("(?<=,)\\d{1,10}(?=,)");
+        Matcher matcher = pattern.matcher(sb);
+        //处理不符合要求的电话号码
+        while(matcher.find()){
+            //去掉多余的逗号
+            sb.replace(matcher.end(),matcher.end()+1,"");
+            matcher = pattern.matcher(sb);
+        }
+        return sb.toString();
     }
 }
