@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import jodd.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.ibase4j.core.exception.IllegalParameterException;
@@ -68,7 +69,7 @@ public class FileUtil {
      */
     public static String readFileToMobiles(String fileName) throws Exception {
 
-        if(StringUtil.isEmpty(fileName)){
+        if(StringUtils.isEmpty(fileName)){
             throw new IllegalParameterException("文件不能为空");
         }
         String postFix = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();

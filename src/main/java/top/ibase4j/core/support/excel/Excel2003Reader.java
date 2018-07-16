@@ -37,7 +37,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  *
  */
 public class Excel2003Reader implements HSSFListener {
-    private static final Logger logger = LogManager.getLogger();
+//    private static final Logger logger = LogManager.getLogger();
     private int minColumns = -1;
     private POIFSFileSystem fs;
     private int lastRowNumber;
@@ -253,7 +253,7 @@ public class Excel2003Reader implements HSSFListener {
                 try {
                     rowReader.getRows(sheetIndex, curRow, rowlist);
                 } catch (Exception e) {
-                    logger.error("", "", e);
+//                    logger.error("", "", e);
                 }
             }
             // 清空容器

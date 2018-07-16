@@ -129,7 +129,7 @@ public final class UploadUtil {
                     fileInfo.setFileSize(multipartFile.getSize());
                     try {
                         multipartFile.transferTo(file);
-                        fileInfo.setFileName(fileName);
+                        fileInfo.setFileName(filePath);
                         fileNames.add(fileInfo);
                     } catch (Exception e) {
                         logger.error(name + "保存失败", e);
