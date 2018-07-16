@@ -376,6 +376,7 @@ public class BaseServiceImpl<T extends BaseModel, M extends BaseMapper<T>> imple
                 HandleDataSource.putDataSource(datasource);
                 records.set(i, getById(ids.getRecords().get(i)));
             });
+            page.setPages((int)ids.getPages());
             page.setRecords(records);
             return page;
         }
