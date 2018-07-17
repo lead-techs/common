@@ -58,16 +58,12 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
             } else {
                 return true;
             }
-        } else if (pathsMatch("/cstm/login", request) || pathsMatch("/cstm/logout", request) || pathsMatch("/cstm/regin", request)|| pathsMatch("/cstm/sendSMS", request)) {
-            System.out.println("enter pathsMatch");
-
-            return true;
         } else {
+            System.out.println("enter onAccess Denied ...... else");
             this.saveRequest(request);
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse resp = (HttpServletResponse) response;
-            resp.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
-            resp.setHeader("Access-Control-Allow-Credentials", "true");
+            resp.setHeader("Access-Control-Allow-Origin", "*");
             resp.setContentType("application/json; charset=utf-8");
             resp.setCharacterEncoding("UTF-8");
             PrintWriter out = resp.getWriter();
@@ -91,6 +87,7 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         //获取请求路径
         if (((HttpServletRequest) req).getMethod().equals("OPTIONS")) {
             ((HttpServletResponse) resp).setHeader("Access-Control-Allow-Origin", "*");
+            ((HttpServletResponse) resp).setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, PATCH, DELETE");
             ((HttpServletResponse) resp).setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Authorization, X-Requested-With, requestId, Correlation-Id");
             ((HttpServletResponse) resp).setStatus(200);
             return true;
@@ -119,10 +116,35 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         System.out.println(".........................token .....................");
         System.out.println(token);
 
+//        // 在使用session+
+//        if (StringUtils.isNotBlank(token)) {
+//            try {
+//                return TokenUtil.verifyToken(token);
+//            } catch (Exception e) {
+//                return false;
+//            }
+//        }
+
         // 在使用session+
         if (StringUtils.isNotBlank(token)) {
-            return TokenUtil.verifyToken(token);
+            String[] a = token.split("##");
+            String clientIp = (String) request.getSession().getAttribute(Constants.USER_IP);
+            try {
+
+                System.out.println("username..." + a[0]);
+                System.out.println("password..." + a[1]);
+                System.out.println("clientIp..." + clientIp);
+
+
+                Subject subject = SecurityUtils.getSubject();
+                UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(a[0], a[1], clientIp);
+                subject.login(usernamePasswordToken);
+                return subject.isAuthenticated();
+            } catch (Exception ex) {
+                return false;
+            }
         }
+
 
         return false;
     }
