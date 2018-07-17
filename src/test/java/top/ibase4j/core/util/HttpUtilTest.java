@@ -1,7 +1,14 @@
 package top.ibase4j.core.util;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -24,20 +31,10 @@ public class HttpUtilTest {
 
     @Test
     public void httpClientPost1() throws Exception {
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            System.out.println("请输入日期。如2017-11-01");
-//            Scanner scan = new Scanner(System.in);
-//            String read = scan.nextLine();
-            Date date = formatter.parse("2017-11-30");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = formatter.parse("2017-11-01");
             System.out.println("退后一天日期为：" + formatter.format(addDateOneDay(date)));
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            System.out.println("录入错误，程序结束！");
-        }
-
-
+//        System.out.println("前一天日期为：" + formatter.format(addDateOneDay(new Date())));
     }
 
     public static Date addDateOneDay(Date date) {
@@ -46,17 +43,54 @@ public class HttpUtilTest {
         }
         Calendar c = Calendar.getInstance();
         c.setTime(date); // 设置当前日期
-        c.add(Calendar.DATE, 1); // 日期加1天
+        c.add(Calendar.DATE, -1); // 日期加1天
         date = c.getTime();
         return date;
     }
 
     @Test
     public void post() throws Exception {
+        String token = TokenUtil.createToken("secret","auth0");
+        System.out.println(token);
+        Boolean jwt = TokenUtil.verifyToken(token);
+        System.out.println(jwt);
     }
 
     @Test
     public void postSSL() throws Exception {
+    }
+
+    //创建一个签名的JWT token HS256算法
+    private String createToken(){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            String token = JWT.create()
+                    .withIssuer("auth0")
+                    .sign(algorithm);
+            return token;
+        } catch (UnsupportedEncodingException exception){
+            //UTF-8 encoding not supported
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+        return null;
+    }
+
+    //验证令牌
+    private DecodedJWT verifyToken(String token){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("auth0")
+                    .build(); //Reusable verifier instance
+            DecodedJWT jwt = verifier.verify(token);
+            return  jwt;
+        } catch (UnsupportedEncodingException exception){
+            //UTF-8 encoding not supported
+        } catch (JWTVerificationException exception){
+            //Invalid signature/claims
+        }
+        return null;
     }
 
 }

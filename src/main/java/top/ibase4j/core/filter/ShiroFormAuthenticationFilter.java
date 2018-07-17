@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.ibase4j.core.Constants;
+import top.ibase4j.core.util.TokenUtil;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -134,22 +135,23 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 
         // 在使用session+
         if (StringUtils.isNotBlank(token)) {
-            String[] a = token.split("##");
-            String clientIp = (String) request.getSession().getAttribute(Constants.USER_IP);
-            try {
-
-                System.out.println("username..." + a[0]);
-                System.out.println("password..." + a[1]);
-                System.out.println("clientIp..." + clientIp);
-
-
-                Subject subject = SecurityUtils.getSubject();
-                UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(a[0], a[1], clientIp);
-                subject.login(usernamePasswordToken);
-                return subject.isAuthenticated();
-            } catch (Exception ex) {
-                return false;
-            }
+            return TokenUtil.verifyToken(token);
+//            String[] a = token.split("##");
+//            String clientIp = (String) request.getSession().getAttribute(Constants.USER_IP);
+//            try {
+//
+//                System.out.println("username..." + a[0]);
+//                System.out.println("password..." + a[1]);
+//                System.out.println("clientIp..." + clientIp);
+//
+//
+//                Subject subject = SecurityUtils.getSubject();
+//                UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(a[0], a[1], clientIp);
+//                subject.login(usernamePasswordToken);
+//                return subject.isAuthenticated();
+//            } catch (Exception ex) {
+//                return false;
+//            }
         }
 
         return false;

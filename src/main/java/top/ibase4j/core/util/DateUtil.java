@@ -207,4 +207,20 @@ public final class DateUtil {
 		}
 		return n;
 	}
+
+	/**
+	 * 获取输入时间的前一天
+	 * @param date
+	 * @return
+	 */
+	public static Date beforeDateOneDay(Date date) {
+		if (null == date) {
+			return date;
+		}
+		Calendar c = Calendar.getInstance();
+		c.setTime(date); // 设置当前日期
+		c.add(Calendar.DATE, -1); // 日期加1天
+		date = c.getTime();
+		return date;
+	}
 }
