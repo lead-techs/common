@@ -8,6 +8,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.apache.commons.lang3.StringUtils;
 import top.ibase4j.core.Constants;
 import top.ibase4j.core.support.Token;
 
@@ -81,6 +82,9 @@ public class TokenUtil {
 
 	//验证令牌
 	public static Boolean verifyToken(String token){
+		if(StringUtils.isEmpty(getSecret())||StringUtils.isEmpty(getAuth())){
+			return false;
+		}
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(getSecret());
 			JWTVerifier verifier = JWT.require(algorithm)
