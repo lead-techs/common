@@ -100,13 +100,8 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         // 模板 导出 导入
         if (path.contains("template") || path.contains("print") || path.contains("download")) {
             ((HttpServletResponse) resp).setStatus(200);
-
-
             return true;
         }
-
-        //  Subject subject = getSubject(req, resp);
-        //  if (null != subject.getPrincipals()) {
 
         // 先使用token
         // 使用token查找用户
@@ -120,15 +115,6 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         if (StringUtils.isBlank(token)) {
             token = request.getHeader("Authorization");
         }
-//
-//        HttpSession r = request.getSession();
-//        System.out.println(r);
-//        System.out.println(r);
-//
-//        String d = request.getSession().getId();
-//        System.out.println(d);
-//        System.out.println(d);
-
 
         System.out.println(".........................token .....................");
         System.out.println(token);
@@ -136,22 +122,6 @@ public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
         // 在使用session+
         if (StringUtils.isNotBlank(token)) {
             return TokenUtil.verifyToken(token);
-//            String[] a = token.split("##");
-//            String clientIp = (String) request.getSession().getAttribute(Constants.USER_IP);
-//            try {
-//
-//                System.out.println("username..." + a[0]);
-//                System.out.println("password..." + a[1]);
-//                System.out.println("clientIp..." + clientIp);
-//
-//
-//                Subject subject = SecurityUtils.getSubject();
-//                UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(a[0], a[1], clientIp);
-//                subject.login(usernamePasswordToken);
-//                return subject.isAuthenticated();
-//            } catch (Exception ex) {
-//                return false;
-//            }
         }
 
         return false;

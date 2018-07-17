@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static top.ibase4j.core.util.DateUtil.DATE_PATTERN.YYYY_MM_DD;
+
 /**
  * 日期操作辅助类
  * 
@@ -33,7 +35,7 @@ public final class DateUtil {
 	 * @return
 	 */
 	public static final String format(Object date) {
-		return format(date, DATE_PATTERN.YYYY_MM_DD);
+		return format(date, YYYY_MM_DD);
 	}
 
 	/**
@@ -223,4 +225,18 @@ public final class DateUtil {
 		date = c.getTime();
 		return date;
 	}
+
+	/**
+	 * 清除日期的时分秒
+	 *
+	 * @param date
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date cleanDateHMS(Date date) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN.YYYY_MM_DD);
+		String s = sdf.format(date);
+		return sdf.parse(s);
+	}
+
 }
