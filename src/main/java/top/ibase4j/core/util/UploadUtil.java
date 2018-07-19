@@ -163,12 +163,12 @@ public final class UploadUtil {
                     String uuid = UUID.randomUUID().toString();
                     String postFix = name.substring(name.lastIndexOf(".")).toLowerCase();
                     String fileName = uuid + postFix;
-                    String filePath = pathDir + File.separator + fileName;
+                    String filePath = pathDir +  fileName;
                     File file = new File(filePath);
                     file.setWritable(true, false);
                     try {
                         multipartFile.transferTo(file);
-                        fileNames.add(fileName);
+                        fileNames.add(filePath);
                     } catch (Exception e) {
                         logger.error(name + "保存失败", e);
                     }
