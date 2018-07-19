@@ -42,7 +42,7 @@ public interface TmspConstants {
     static final String PARAMS_SIZE = "pageSize";
 
     /*每页默认显示十条*/
-    static final String PAGESIZE = "10";
+    static final String PAGESIZE = "20";
 
     /*数据总数*/
     static final String PARAMS_TOTAL = "total";
