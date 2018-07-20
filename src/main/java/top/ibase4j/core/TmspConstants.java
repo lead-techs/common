@@ -54,7 +54,7 @@ public interface TmspConstants {
     interface REGULAR {
 
         /* 正则验证签名 */
-        static final String REGULAR_IDGPH = "[\\u4e00-\\u9fa5_a-zA-Z0-9\\u3010\\u3011]{0,20}";
+        static final String REGULAR_IDGPH = "[\\u4e00-\\u9fa5_a-zA-Z0-9]{0,20}";
 
         /* 数字正则 */
         static final String REGEX_NUM = "^[0-9]*$";
