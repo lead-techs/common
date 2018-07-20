@@ -21,9 +21,7 @@ public class HttpClientUtilTest {
 
     @Test
     public void get1() throws Exception {
-//        MobilesDisposeUtil.isPhone("15965471234");
-//        System.out.println(WebServiceUtil.longConvertShortLink("http://api.ft12.com/api.php","format=jsonp&url=http%3A%2F%2Fwww.baidu.com%2F&callback=callbackname"));
-        String[] strs = WebServiceUtil.shortUrl("https://blog.csdn.net/yushouling/article/details/55096992");
+        String strs = WebServiceUtil.longConvertShortLink("http://cnblogscom/james-lee/p/6847906.html");
         System.out.println(strs);
     }
 
