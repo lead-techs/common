@@ -168,7 +168,7 @@ public final class UploadUtil {
                     file.setWritable(true, false);
                     try {
                         multipartFile.transferTo(file);
-                        fileNames.add(filePath);
+                        fileNames.add(fileName);
                     } catch (Exception e) {
                         logger.error(name + "保存失败", e);
                     }
