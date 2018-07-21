@@ -27,6 +27,8 @@ public class HttpClientUtilTest {
 
     @Test
     public void post() throws Exception {
+        
+
     }
 
     @Test

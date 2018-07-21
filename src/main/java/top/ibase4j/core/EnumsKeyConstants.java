@@ -44,6 +44,17 @@ public interface EnumsKeyConstants {
         static final String UNKNOWN = "04";
     }
 
+    /*模板类型*/
+    static final String SMODEL_TYPE = "SMODEL_TYPE";
+
+    interface SMODELTYPE {
+        /*验证码*/
+        static final String VERCODE = "01";
+
+        /*通知&订单*/
+        static final String NOTICE = "02";
+    }
+
     /*审核状态*/
     static final String AUDIT_STATE = "AUDIT_STATE";
 
