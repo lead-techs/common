@@ -9,11 +9,11 @@
 
 	<!-- 注册中心的配置 -->
 	<motan:registry regProtocol="${rpc.registry}" name="rpc_registry"
-		address="${rpc.address}" connectTimeout="${rpc.connect.timeout}" />
+		address="${rpc.address}" connectTimeout="60000" />
 
 	<!-- 协议配置。为防止多个业务配置冲突，推荐使用id表示具体协议。 -->
 	<motan:protocol id="motan" name="motan" default="true"
-		requestTimeout="${rpc.request.timeout}" maxContentLength="${rpc.protocol.maxContentLength}"
+		requestTimeout="60000" maxContentLength="${rpc.protocol.maxContentLength}"
 		maxWorkerThread="${rpc.protocol.maxThread}" minWorkerThread="${rpc.protocol.minThread}"
 		maxClientConnection="${rpc.protocol.maxClientConnection}" />
 	<!-- 服务的默认配置 -->
