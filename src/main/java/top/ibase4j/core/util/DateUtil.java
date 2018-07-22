@@ -2,8 +2,7 @@ package top.ibase4j.core.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import static top.ibase4j.core.util.DateUtil.DATE_PATTERN.YYYY_MM_DD;
 
@@ -238,5 +237,25 @@ public final class DateUtil {
 		String s = sdf.format(date);
 		return sdf.parse(s);
 	}
+
+	/**
+	 * 获取最近一周的日期
+	 *
+	 * @return
+	 * @throws ParseException
+	 */
+	public static List<String> lastWeekDate() throws ParseException {
+		List<String> result = new ArrayList<>();
+		Date date = DateUtil.cleanDateHMS(new Date());
+		for(int i=0;i<7;i++){
+
+			date = DateUtil.beforeDateOneDay(date);
+			result.add(DateUtil.format(date));
+		}
+		//反转
+		Collections.reverse(result);
+		return result;
+	}
+
 
 }

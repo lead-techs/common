@@ -3,9 +3,8 @@ package top.ibase4j.core.util;
 import org.junit.Test;
 import top.ibase4j.core.support.http.common.HttpConfig;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Created by HH on 2018-06-07.
@@ -27,8 +26,7 @@ public class HttpClientUtilTest {
 
     @Test
     public void post() throws Exception {
-        
-
+        System.out.println(Arrays.toString(DateUtil.lastWeekDate().toArray()));
     }
 
     @Test
